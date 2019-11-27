@@ -203,7 +203,3 @@ exit:
 
 	return rc;
 }
-
-int main(void) {
-    return 0;
-}
