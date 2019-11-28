@@ -1,0 +1,3 @@
+It is sample code, using ctypes modules to call libkey.so.
+
+key.c is the source code provides the key, run 'make' to build libkey.so.

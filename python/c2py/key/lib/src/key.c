@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PWD "pwd123"
-#define KEY "markdown-00-key_"
+#define PWD "passwd123"
+#define KEY "TxT-00-^&^-_-key"
 
-char* get_md_key(char *pwd) {
+char* get_key(char *pwd) {
     if (!strcmp(pwd, PWD))
         return KEY;
     else
-	    return 0;
+	    return NULL;
 }
