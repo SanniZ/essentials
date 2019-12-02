@@ -39,7 +39,7 @@ int run_python(void) {
     } else {
         char *version = NULL;
         PyArg_Parse(pVer, "s", &version);
-        printf("get version: %s\n", version);
+        printf("get func.py version: %s\n", version);
     }
 
     pArgs = PyTuple_New(3);
