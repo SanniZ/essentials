@@ -12,32 +12,34 @@ TARGET = main
 endif
 
 C_FILES = \
-	$(CUR_DIR)/main.c
+	main.c
 
 PY_FILES = func.py
 
-OUT = out
-OUT_OBJS = $(OUT)/objs
+DIST = dist
+DIST_OBJS = $(DIST)/objs
 
 DIR_OBJS = $(patsubst %.c,%.o, $(C_FILES))
-OBJS = $(addprefix $(OUT_OBJS)/, $(patsubst %.c,%.o, $(C_FILES)))
+OBJS = $(addprefix $(DIST_OBJS)/, $(patsubst %.c,%.o, $(C_FILES)))
 
-all: main
+all: build_c build_py
 
-main: $(OBJS)
-	@$(CC) -o $(OUT)/$(TARGET) $(OBJS) $(CFLAGS)
-	@$(shell cd $(OUT) && ln -s ../$(PY_FILES))
+build_c: $(OBJS)
+	@$(CC) -o $(DIST)/$(TARGET) $(OBJS) $(CFLAGS)
+
+build_py:
+	$(shell cp $(PY_FILES) $(DIST))
 
 $(OBJS): $(DIR_OBJS)
 
 $(DIR_OBJS): %.o : %.c
-	@mkdir -p $(OUT_OBJS)/$(dir $@)
-	@$(CC) -o main.o -c main.c $(CFLAGS)
-	@mv $@ $(OUT_OBJS)/$(dir $@)
+	@mkdir -p $(DIST_OBJS)/$(dir $@)
+	@$(CC) -o $@ -c $< $(CFLAGS)
+	@mv $@ $(DIST_OBJS)/$(dir $@)
 
 .PHONY: clean
 clean:
-	@rm -rf  *.o *.pyc __pycache__ $(OUT) $(TARGET)
+	@rm -rf  *.o *.pyc __pycache__ $(DIST) $(TARGET)
 	
 .PHONY: help
 help:
